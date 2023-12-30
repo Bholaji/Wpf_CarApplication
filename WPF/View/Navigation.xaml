@@ -67,8 +67,8 @@
                                    Grid.Column="0"
                                    Margin="0,10,0,0"/>
 
-                        <TextBlock Text="Transaction" 
-                                   MouseLeftButtonDown="TransactionPage"
+                        <TextBlock Text="Admin" 
+                                   MouseLeftButtonDown="AdminPage"
                                    Foreground="DarkGray"
                                     FontSize="14"
                                     FontFamily="Montserrat" 

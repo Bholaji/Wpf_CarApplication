@@ -56,14 +56,25 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Stored Procedures" />
+    <Folder Include="Tables" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Stored Procedures\AdminLoginProcedure.sql" />
+    <Build Include="Stored Procedures\GetHashProcedure.sql" />
+    <Build Include="Stored Procedures\GetProductByIdProcedure.sql" />
+    <Build Include="Stored Procedures\GetProductProcedure.sql" />
+    <Build Include="Stored Procedures\LogInProcedure.sql" />
+    <Build Include="Stored Procedures\SignUpProcedure.sql" />
+    <Build Include="Tables\ProductTable.sql" />
+    <Build Include="Tables\AdminUserTable.sql" />
+    <Build Include="Tables\UserTable.sql" />
+    <Build Include="Stored Procedures\EmailExistProcedure.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Stored Procedures\StoreCarProductProcedure.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script1.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="SignUpTable.sql" />
-    <Build Include="SignUpProcedure.sql" />
-    <Build Include="LogInProcedure.sql" />
-    <Build Include="Table5.sql" />
   </ItemGroup>
 </Project>

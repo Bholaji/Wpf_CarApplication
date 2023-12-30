@@ -1,5 +1,7 @@
 ﻿using Models;
 using Services.Implementaions;
+using Services.Interfaces;
+using Services.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using serviceUtilities = Services.Utilities.Utilities;
 
 namespace WPF.View
 {
@@ -21,10 +24,12 @@ namespace WPF.View
     /// </summary>
     public partial class SignUp : Window
     {
-        private readonly UserService userService;
+        private readonly IUserService userService;
+        private readonly IUtilities utilities;
         public SignUp()
         {
             userService = new UserService();
+            utilities = new serviceUtilities();
             InitializeComponent();
         }
 
@@ -76,11 +81,33 @@ namespace WPF.View
                     !string.IsNullOrEmpty(Email) &&
                     !string.IsNullOrEmpty(Password))
                 {
-                    userService.SignUp(user);
-                    MessageBox.Show($"Signup Successful");
-                    var navigation = new Navigation();
-                    navigation.Show();
-                    this.Hide();
+                    bool isEmailValid = utilities.IsValidEmail(Email);
+                    bool isEmailExist = userService.IsEmailExist(Email);
+                    if(!isEmailValid || isEmailExist)
+                    {
+                        if (!isEmailValid)
+                        {
+                            txtError.Text = "Email not valid!";
+                            txtError.Visibility = Visibility.Visible;
+                            
+                        }
+                        if (isEmailExist)
+                        {
+                            txtError.Text = "Email already exist!";
+                            txtError.Visibility = Visibility.Visible;
+                        }
+                    }
+                    else
+                    {
+                        userService.SignUp(user);
+                        MessageBox.Show($"Signup Successful");
+                        var navigation = new Navigation();
+                        navigation.Show();
+                        this.Hide();
+                    }
+
+
+
                 }
                 else { MessageBox.Show($"Fill in the appropriate fields"); }
                 

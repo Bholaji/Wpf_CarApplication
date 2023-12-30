@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Repository.Implementations;
+using Repository.Interfaces;
+using Services.Implementaions;
+using Services.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using ProductVM = Models.Product;
 
 namespace WPF.View
 {
@@ -19,9 +17,72 @@ namespace WPF.View
     /// </summary>
     public partial class Product : Window
     {
+        private readonly IUserService userService;
+        private List<ProductVM> ProductList;
         public Product()
         {
+            userService = new UserService();
+            ProductList = new List<ProductVM>();
             InitializeComponent();
+
+            
+            LoadProducts();
+        }
+
+        private void LoadProducts()
+        {
+            ProductList = userService.LoadProduct();
+            
+
+            if(ProductList.Count > 0)
+            {
+                foreach (var p in ProductList)
+                {
+                    string imagePath = p.ProductImage;
+
+                    ImageSourceConverter converter = new();
+                    ImageSource imageSource = (ImageSource)converter.ConvertFromString(imagePath);
+
+                    // Create an Image control
+                    Image productImage = new();
+                    productImage.Source = imageSource;
+                    productImage.Width = 230;
+                    productImage.Height = 230;
+
+                    // Create a TextBlock for product name
+                    TextBlock productName = new();
+                    productName.Text = p.ProductName;
+                    productName.Margin = new(0,-10,0,10);
+
+                    // Create a StackPanel to hold each product's image and name
+                    StackPanel stackPanel = new();
+                    stackPanel.Orientation = Orientation.Vertical;
+                    stackPanel.Margin = new Thickness(0,-10,10,0); 
+                    stackPanel.Children.Add(productImage);
+                    stackPanel.Children.Add(productName);
+
+                    //Pass the productid from the mouseclick event
+                    productImage.MouseLeftButtonDown += (sender, e) =>
+                    {
+                        HandleProductClick(p.ProductId);
+                    };
+
+                    // Add the stackPanel to the WrapPanel
+                    productsWrapPanel.Children.Add(stackPanel);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No availble products");
+            }
+        }
+
+        private void HandleProductClick(Guid ProductId)
+        {
+            Guid selectedProductId = ProductId;
+            var productDetails = new ProductDetails(selectedProductId);
+            productDetails.Show();
+            this.Hide();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -48,5 +109,7 @@ namespace WPF.View
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) { }
+
+        
     }
 }

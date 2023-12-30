@@ -30,10 +30,10 @@ namespace WPF.View
                 DragMove();
         }
 
-        private void TransactionPage(object sender, MouseButtonEventArgs e)
+        private void AdminPage(object sender, MouseButtonEventArgs e)
         {
-            var transaction = new Transaction();
-            transaction.Show();
+            var admin = new Admin();
+            admin.Show();
             this.Close();
         }
 

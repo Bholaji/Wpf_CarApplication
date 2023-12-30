@@ -1,9 +1,16 @@
-﻿using System;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Text.RegularExpressions;
 
 namespace Services.Utilities
 {
@@ -25,6 +32,14 @@ namespace Services.Utilities
 
             // Compare the hashed entered password with the stored hashed password
             var x = hashedEnteredPassword.Equals(storedHashedPassword, StringComparison.OrdinalIgnoreCase);
+            return x;
+        }
+
+        public bool VerifyNormalPassword(string enteredPassword, string receivedPassword)
+        {
+            string EnteredPassword = enteredPassword;
+
+            var x = EnteredPassword.Equals(receivedPassword, StringComparison.OrdinalIgnoreCase);
             return x;
         }
 
@@ -112,6 +127,63 @@ namespace Services.Utilities
             using StreamReader srDecrypt = new StreamReader(csDecrypt);
             return srDecrypt.ReadToEnd();
         }
+
+        public string UploadImageAndGetUrl(string imagePath)
+        {
+            Account account = new(
+            "dx6vy4elc",
+            "876881545965133",
+            "KU1YrXersVMgHj8KB2eybnq_B1w"
+        );
+            Cloudinary cloudinary = new(account);
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(imagePath)
+            };
+
+            var uploadResult = cloudinary.Upload(uploadParams);
+
+            return uploadResult.SecureUrl.ToString();
+        }
+
+        public void SendConfirmationEmail(string userEmail)
+        {
+            try
+            {
+                MailMessage mail = new();
+                SmtpClient smtpServer = new("smtp.mail.yahoo.com");
+                mail.From = new MailAddress("bolaji4aus2017@yahoo.com");
+                mail.To.Add(userEmail);
+                mail.Subject = "Confirmation of Your Order";
+                mail.Body = "Thank you for your order! This is a confirmation email.";
+
+                smtpServer.Port = 465; // Use 587 for TLS, or 465 for SSL
+                smtpServer.EnableSsl = true;
+                smtpServer.Credentials = new NetworkCredential("bolaji4aus2017@yahoo", "rah4rah1234");
+
+                smtpServer.Send(mail);
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
+        
+        public bool IsValidEmail(string email)
+        {
+            // Define a regular expression pattern for email validation
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+
+            // Create a Regex object and match the email against the pattern
+            Regex regex = new Regex(pattern);
+            Match match = regex.Match(email);
+
+            return match.Success;
+        }
+
+
     }
 
 }

@@ -254,6 +254,11 @@
                           Padding="20,0,0,0"
                           Background="Transparent">
                     </TextBox>
+                    <TextBlock Text="Email not valid!"
+                                x:Name="txtError"
+                               Visibility="Hidden"
+                               FontSize="10"
+                               Foreground="Red"/>
 
                     <TextBlock Text="Password"
                             Foreground="LightGray"

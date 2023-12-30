@@ -39,7 +39,7 @@
                 </LinearGradientBrush>
             </Border.Background>
 
-            <Grid>
+            <Grid Margin="-1,0,1,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition/>
@@ -163,6 +163,106 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Margin="20,0,0,0">
+                        <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
+                            <Border CornerRadius="12" Height="420" Width="350">
+                                <Border.Background>
+                                    <ImageBrush x:Name="txtProductImage"
+                                                    Stretch="UniformToFill"/>
+                                </Border.Background>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for 'Product Name' title -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for 'Details' title -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for product details -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for 'Price' title -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for product price -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Row for Order button -->
+                        </Grid.RowDefinitions>
+                        <!--Product Name-->
+                        <TextBlock x:Name="txtProductname"
+                                  FontSize="30"
+                                  FontWeight="Bold"/>
+                        <!-- 'Details' title -->
+                        <TextBlock Text="Details"
+                                   Margin="0,20,0,5"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Grid.Row="1"/>
+
+                        <!-- Product details -->
+                        <TextBlock x:Name="txtProductDetails"
+                                   FontSize="15"
+                                   MaxHeight="400"
+                                   Margin="0,0,0,0"
+                                   TextWrapping="Wrap"
+                                   Grid.Row="2"
+                                   Width="auto"/>
+
+                        <!-- 'Price' title -->
+                        <TextBlock Text="Price"
+                                   Margin="0,5,0,0"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Grid.Row="3"/>
+
+                        <!-- Product price -->
+                        <TextBlock x:Name="txtProductPrice"
+                                   Margin="0,5,0,0"
+                                   FontSize="20"
+                                   Grid.Row="4"/>
+                        
+                        <!--Order button-->
+                        <Button 
+                   BorderThickness="0"
+                   Content="ORDER"
+                   Foreground="White"
+                   FontSize="12"
+                   FontFamily="Montserrat"
+                   Cursor="Hand"                           
+                   Margin="0,50,0,0" 
+                   Click="btnCheckout"
+                            Grid.Row="5">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#462AD8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#28AEED"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="370" Height="40"
+CornerRadius="20"
+Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                     HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+
                 </Grid>
                 
             </Grid>

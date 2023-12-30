@@ -168,84 +168,8 @@
                 <Grid Grid.Row="1" Margin="30,10,0,0">
                     <!-- Using a WrapPanel to arrange products horizontally and wrap to the next line -->
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <WrapPanel >
-                            <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Border CornerRadius="12" Height="230" Width="230">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="C:\Users\BJ\Documents\C# projects\WPF_CarApplication\WPF\Images\Carr1.jpg"
-                        Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock Text="2024 Toyota 4Runner" 
-               FontSize="15"
-               Margin="0,5,0,0"/>
-                            </StackPanel>
-                            <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Border CornerRadius="12" Height="230" Width="230">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="C:\Users\BJ\Documents\C# projects\WPF_CarApplication\WPF\Images\Car2.jpg"
-                        Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock Text="2024 Toyota 4Runner" 
-               FontSize="15"
-               Margin="0,5,0,0"/>
-                            </StackPanel>
-                            <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Border CornerRadius="12" Height="230" Width="230">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="C:\Users\BJ\Documents\C# projects\WPF_CarApplication\WPF\Images\Car3.jpg"
-                        Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock Text="2024 Toyota 4Runner" 
-               FontSize="15"
-               Margin="0,5,0,0"/>
-                            </StackPanel>
-                            <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Border CornerRadius="12" Height="230" Width="230">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="C:\Users\BJ\Documents\C# projects\WPF_CarApplication\WPF\Images\Car4.jpg"
-                        Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock Text="2024 Toyota 4Runner" 
-               FontSize="15"
-               Margin="0,5,0,0"/>
-                            </StackPanel>
-                            <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Border CornerRadius="12" Height="230" Width="230">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="C:\Users\BJ\Documents\C# projects\WPF_CarApplication\WPF\Images\Car5.jpg"
-         Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock Text="2024 Toyota 4Runner" 
-FontSize="15"
-Margin="0,5,0,0"/>
-                            </StackPanel>
-                            <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Border CornerRadius="12" Height="230" Width="230">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="C:\Users\BJ\Documents\C# projects\WPF_CarApplication\WPF\Images\Carr1.jpg"
-         Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock Text="2024 Toyota 4Runner" 
-FontSize="15"
-Margin="0,5,0,0"/>
-                            </StackPanel>
-                            <StackPanel Margin="0,0,15,10" Orientation="Vertical" HorizontalAlignment="Left">
-                                <Border CornerRadius="12" Height="230" Width="230">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="C:\Users\BJ\Documents\C# projects\WPF_CarApplication\WPF\Images\Car2.jpg"
-                                                    Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
-                                <TextBlock Text="2024 Toyota 4Runner" 
-FontSize="15"
-Margin="0,5,0,0"/>
-                            </StackPanel>
+                        <WrapPanel x:Name="productsWrapPanel" Margin="0,-10,0,0">
+                            
                         </WrapPanel>
                     </ScrollViewer>
                     
@@ -255,4 +179,5 @@ Margin="0,5,0,0"/>
             </Grid>
         </Border>
     </Border>
+
 </Window>

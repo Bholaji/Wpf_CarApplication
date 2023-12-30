@@ -4,5 +4,5 @@
 	@Email nvarchar(50),
 	@Password nvarchar(Max)
 AS
-	Insert into SignUpTable Values (NEWID(), @FirstName, @LastName,@Email,@Password)
+	Insert into UserTable Values (NEWID(), @FirstName, @LastName,@Email,@Password)
 RETURN 0

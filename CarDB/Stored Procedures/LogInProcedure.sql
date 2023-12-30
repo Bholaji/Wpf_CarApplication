@@ -6,8 +6,8 @@ AS
 BEGIN
 	DECLARE @UserID uniqueidentifier
 
-	SELECT *
-	From SignUpTable
+	SELECT @UserID = Id
+	From UserTable
 	Where Email = @Email AND Password = @Password
 
 	END
