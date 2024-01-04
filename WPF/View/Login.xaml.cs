@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Services.Implementaions;
 using Services.Interfaces;
+using Services.Utilities;
+using Util = Services.Utilities.Utilities;
 
 namespace WPF.View
 {
@@ -23,9 +25,11 @@ namespace WPF.View
     public partial class Login : Window
     {
         private readonly IUserService userService;
+        private readonly IUtilities utilities;
         public Login()
         {
             userService = new UserService();
+            utilities = new Util();
             InitializeComponent();
         }
 
@@ -47,9 +51,9 @@ namespace WPF.View
 
         private void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
-            String Email = txtEmail.Text;
-            String Password = txtPassword.Password;
-            var user = new User { Email = Email, Password = Password };
+            string Email = txtEmail.Text;
+            string Password = txtPassword.Password;
+            var user = new User { Email = Email, Password = Password, Role= Role.Regular };
 
             try
             {

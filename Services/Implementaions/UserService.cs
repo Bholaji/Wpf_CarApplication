@@ -14,19 +14,18 @@ namespace Services.Implementaions
     {
         private readonly IUserRepository userRepository;
         private readonly IUtilities utilities;
-        private List<Product> ProductList;
 
         public UserService()
         {
             utilities = new serviceUtility();
             userRepository = new UserRepository();
-            ProductList = new List<Product>();
         }
 
         public void SignUp(User user)
         {
             try
             {
+                user.Role = Role.Regular;
                user.Password = utilities.HashPassword(user.Password);
                 userRepository.CreateUser(user);
             }
@@ -41,8 +40,10 @@ namespace Services.Implementaions
         {
             try
             {
-                string storedHash = userRepository.GetStoredHashedPassword( user);
-                bool isPasswordcorrect = utilities.VerifyPassword(user.Password,storedHash);
+                /*string storedHash = userRepository.GetStoredHashedPassword( user);
+                bool isPasswordcorrect = utilities.VerifyPassword(user.Password,storedHash);*/
+                user.Password = utilities.HashPassword(user.Password);
+                bool isPasswordcorrect = userRepository.ValidateLogin(user);
                 if (isPasswordcorrect)
                 {
                     return true;
@@ -61,11 +62,21 @@ namespace Services.Implementaions
             
         }
 
-        public bool AdminLogIn(Admin admin)
+        public bool AdminLogIn(User user)
         {
-            try {
-                string receivedPassword = userRepository.ValidateAdminLogin(admin);
-                bool isAdmin = utilities.VerifyNormalPassword(admin.AdminPassword, receivedPassword);
+            bool isAdmin = userRepository.ValidateAdminLogin(user);
+            if (isAdmin)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            /*try
+            {
+                string receivedPassword = userRepository.ValidateAdminLogin(user);
+                bool isAdmin = utilities.VerifyNormalPassword(user.Password, receivedPassword);
 
                 if (isAdmin)
                 {
@@ -75,42 +86,11 @@ namespace Services.Implementaions
                 {
                     return false;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }
-        }
-
-        public List<Product> LoadProduct()
-        {
-            List<Product> loadedProducts = userRepository.GetProducts();
-
-            ProductList = loadedProducts;
-
-            return ProductList;
-        }
-
-        public Product LoadProductById(Product product)
-        {
-            try
-            {
-                return userRepository.GetProductById(product);
-            }catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            
-        }
-
-        public void StoreProductToDB(Product product)
-        {
-            try
-            {
-                userRepository.StoreProduct(product);
-            }catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            }*/
         }
 
         public bool IsEmailExist(string email)

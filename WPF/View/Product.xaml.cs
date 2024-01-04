@@ -17,11 +17,11 @@ namespace WPF.View
     /// </summary>
     public partial class Product : Window
     {
-        private readonly IUserService userService;
+        private readonly IProductService productService;
         private List<ProductVM> ProductList;
         public Product()
         {
-            userService = new UserService();
+            productService = new ProductService();
             ProductList = new List<ProductVM>();
             InitializeComponent();
 
@@ -31,7 +31,7 @@ namespace WPF.View
 
         private void LoadProducts()
         {
-            ProductList = userService.LoadProduct();
+            ProductList = productService.LoadProduct();
             
 
             if(ProductList.Count > 0)

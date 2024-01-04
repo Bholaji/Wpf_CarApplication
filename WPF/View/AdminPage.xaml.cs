@@ -28,13 +28,11 @@ namespace WPF.View
     /// </summary>
     public partial class AdminPage : Window
     {
-        private readonly IUtilities utilities;
-        private readonly IUserService userService;
+        private readonly IProductService productService;
         private string imagePath;
         public AdminPage()
         {
-            userService = new UserService();
-            utilities = new serviceUtility();
+            productService = new ProductService();
             InitializeComponent();
         }
 
@@ -79,7 +77,7 @@ namespace WPF.View
 
             try
             {
-                userService.StoreProductToDB(product);
+                productService.StoreProductToDB(product);
                 MessageBox.Show("Product added successsfully");
 
                 txtCarName.Text = "";

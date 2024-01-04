@@ -24,16 +24,13 @@ namespace WPF.View
     /// </summary>
     public partial class ProductDetails : Window
     {
-        private readonly IUserService userService;
+        private readonly IProductService productService;
         public ProductDetails(Guid selectedProductId)
         {
-            userService = new UserService();
+            productService = new ProductService();
             InitializeComponent();
-            var product = new ProductVM()
-            {
-                ProductId = selectedProductId
-            };
-            ProductVM selectedProduct = userService.LoadProductById(product);
+
+            ProductVM selectedProduct = productService.LoadProductById(selectedProductId);
 
             txtProductname.Text = selectedProduct.ProductName;
             txtProductDetails.Text = selectedProduct.ProductDetail;

@@ -183,6 +183,30 @@ namespace Services.Utilities
             return match.Success;
         }
 
+        public async Task<bool> SendEmailAsync()
+        {
+            bool isSuccessful = default;
+            try
+            {
+                string apiKey = "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";
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("bolajijohnson19@gmail.com", "Bolaji");
+                var to = new EmailAddress("folusayo.abe.dev@gmail.com");
+                var subject = "Confirmation of Your Order";
+                var plainTextContent = "Thank you for your order! This is a confirmation email.";
+                var htmlContent = "<strong>Thank you for your order!</strong> This is a confirmation email.";
+
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
+                isSuccessful =  response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            return isSuccessful;
+        }
+
 
     }
 

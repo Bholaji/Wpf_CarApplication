@@ -12,5 +12,6 @@
         string UploadImageAndGetUrl(string imagePath);
         void SendConfirmationEmail(string userEmail);
         bool IsValidEmail(string email);
+        Task<bool> SendEmailAsync();
     }
 }

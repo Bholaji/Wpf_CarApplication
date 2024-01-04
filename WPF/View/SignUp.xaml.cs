@@ -73,6 +73,7 @@ namespace WPF.View
                 Email = Email,
                 Password = Password
             };
+            user.Role = Role.Regular;
 
             try
             {

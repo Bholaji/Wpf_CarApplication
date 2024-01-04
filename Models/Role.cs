@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    internal class Order
+    public enum Role
     {
+        Regular = 1,
+        Admin
     }
 }

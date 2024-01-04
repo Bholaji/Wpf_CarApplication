@@ -57,15 +57,15 @@ namespace WPF.View
         {
             string Email = txtEmail.Text;
             string Password = txtPassword.Password;
-            var admin = new AdminVM { AdminEmail = Email, AdminPassword = Password };
+            var userAdmin = new User { Email = Email, Password = Password, Role = Role.Admin };
 
             try
             {
                 if (!string.IsNullOrEmpty(Email) || !string.IsNullOrEmpty(Password))
                 {
 
-                    bool isAdminLoggedIn = userService.AdminLogIn(admin);
-                    if (isAdminLoggedIn)
+                  bool isAdmin = userService.AdminLogIn(userAdmin);
+                    if (isAdmin)
                     {
                         var adminPage = new AdminPage();
                         adminPage.Show();
@@ -74,7 +74,6 @@ namespace WPF.View
                     }
                     else
                     {
-                        // Failed login
                         MessageBox.Show("Invalid email or password");
                     }
                 }
