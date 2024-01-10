@@ -1,6 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[LogInProcedure2]
+﻿CREATE PROCEDURE [dbo].[LogInProcedure]
 	@Email nvarchar(50),
-	@Password nvarchar(50)
+	@Password nvarchar(MAX),
+	@Role int
 	
 AS
 BEGIN
@@ -8,7 +9,11 @@ BEGIN
 
 	SELECT @UserID = Id
 	From UserTable
-	Where Email = @Email AND Password = @Password
+	Where Email = @Email AND Password = @Password AND @Role = 1
 
+	IF @UserID IS NOT NULL AND @Role = 1
+    BEGIN
+        SELECT 'SUCCESS' AS Result 
+    END
 	END
-Go
+RETURN 0
