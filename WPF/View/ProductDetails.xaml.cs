@@ -1,7 +1,5 @@
-﻿using Repository.Implementations;
-using Repository.Interfaces;
+﻿using EFCoreData.Interface;
 using Services.Implementaions;
-using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +22,13 @@ namespace WPF.View
     /// </summary>
     public partial class ProductDetails : Window
     {
-        private readonly IProductService productService;
+        private readonly IProductEFCoreRepositories productServiceEFCore;
         public ProductDetails(Guid selectedProductId)
         {
-            productService = new ProductService();
+            productServiceEFCore = new ProductServiceEFCore();
             InitializeComponent();
 
-            ProductVM selectedProduct = productService.LoadProductById(selectedProductId);
+            ProductVM selectedProduct = productServiceEFCore.LoadProductById(selectedProductId);
 
             txtProductname.Text = selectedProduct.ProductName;
             txtProductDetails.Text = selectedProduct.ProductDetail;

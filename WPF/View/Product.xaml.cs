@@ -1,7 +1,5 @@
-﻿using Repository.Implementations;
-using Repository.Interfaces;
+﻿using EFCoreData.Interface;
 using Services.Implementaions;
-using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -17,12 +15,12 @@ namespace WPF.View
     /// </summary>
     public partial class Product : Window
     {
-        private readonly IProductService productService;
+        private readonly IProductEFCoreRepositories productServiceEF;
         private List<ProductVM> ProductList;
         public Product()
         {
-            productService = new ProductService();
             ProductList = new List<ProductVM>();
+            productServiceEF = new ProductServiceEFCore();
             InitializeComponent();
 
             
@@ -31,7 +29,8 @@ namespace WPF.View
 
         private void LoadProducts()
         {
-            ProductList = productService.LoadProduct();
+            //ProductList = productService.LoadProduct();
+            ProductList = productServiceEF.LoadProducts();
             
 
             if(ProductList.Count > 0)

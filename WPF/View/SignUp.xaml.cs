@@ -1,6 +1,8 @@
-﻿using Models;
+﻿using EFCoreData;
+using EFCoreData.Implementations;
+using EFCoreData.Interface;
+using Models;
 using Services.Implementaions;
-using Services.Interfaces;
 using Services.Utilities;
 using System;
 using System.Collections.Generic;
@@ -24,12 +26,12 @@ namespace WPF.View
     /// </summary>
     public partial class SignUp : Window
     {
-        private readonly IUserService userService;
         private readonly IUtilities utilities;
+        private readonly IUserEFCoreRepositories serviceEFCore;
         public SignUp()
         {
-            userService = new UserService();
             utilities = new serviceUtilities();
+            serviceEFCore = new UserServiceEFCore();
             InitializeComponent();
         }
 
@@ -75,6 +77,9 @@ namespace WPF.View
             };
             user.Role = Role.Regular;
 
+
+           
+
             try
             {
                 if (!string.IsNullOrEmpty(FirstName) &&
@@ -83,7 +88,7 @@ namespace WPF.View
                     !string.IsNullOrEmpty(Password))
                 {
                     bool isEmailValid = utilities.IsValidEmail(Email);
-                    bool isEmailExist = userService.IsEmailExist(Email);
+                    bool isEmailExist = serviceEFCore.IsEmailExist(Email);
                     if(!isEmailValid || isEmailExist)
                     {
                         if (!isEmailValid)
@@ -100,7 +105,8 @@ namespace WPF.View
                     }
                     else
                     {
-                        userService.SignUp(user);
+                        serviceEFCore.SignUpUser(user);
+
                         MessageBox.Show($"Signup Successful");
                         var navigation = new Navigation();
                         navigation.Show();
@@ -115,7 +121,8 @@ namespace WPF.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Signup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Error: " + ex.Message, "Signup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message);
             }
 
         }

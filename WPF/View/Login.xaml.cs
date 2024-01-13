@@ -13,9 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Services.Implementaions;
-using Services.Interfaces;
 using Services.Utilities;
 using Util = Services.Utilities.Utilities;
+using EFCoreData;
+using EFCoreData.Interface;
 
 namespace WPF.View
 {
@@ -24,12 +25,10 @@ namespace WPF.View
     /// </summary>
     public partial class Login : Window
     {
-        private readonly IUserService userService;
-        private readonly IUtilities utilities;
+        private readonly IUserEFCoreRepositories serviceEFCore;
         public Login()
         {
-            userService = new UserService();
-            utilities = new Util();
+            serviceEFCore = new UserServiceEFCore();
             InitializeComponent();
         }
 
@@ -59,20 +58,20 @@ namespace WPF.View
             {
                 if(!string.IsNullOrEmpty(Email) || !string.IsNullOrEmpty(Password))
                 {
-
-                    bool isLoggedIn = userService.LogIn(user);
-                    if (isLoggedIn)
-                    {
-                        var navigation = new Navigation();
-                        navigation.Show();
-                        this.Hide();
-                        MessageBox.Show("Login successful");
-                    }
-                    else
-                    {
-                        // Failed login
-                        MessageBox.Show("Invalid email or password");
-                    }
+                    bool isLoggedIn = serviceEFCore.LoginUser(user);
+                        if (isLoggedIn)
+                        {
+                            var navigation = new Navigation();
+                            navigation.Show();
+                            this.Hide();
+                            MessageBox.Show("Login successful");
+                        }
+                        else
+                        {
+                            // Failed login
+                            MessageBox.Show("Invalid email or password");
+                        }
+                    
                 }else
                 {
                     MessageBox.Show($"Fill in the appropraite fields");

@@ -16,10 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using serviceUtility = Services.Utilities.Utilities;
 using ProductVM = Models.Product;
-using Repository.Interfaces;
-using Repository.Implementations;
-using Services.Interfaces;
 using Services.Implementaions;
+using EFCoreData.Interface;
 
 namespace WPF.View
 {
@@ -28,11 +26,11 @@ namespace WPF.View
     /// </summary>
     public partial class AdminPage : Window
     {
-        private readonly IProductService productService;
+        private readonly IProductEFCoreRepositories productServiceEF;
         private string imagePath;
         public AdminPage()
         {
-            productService = new ProductService();
+            productServiceEF = new ProductServiceEFCore();
             InitializeComponent();
         }
 
@@ -77,7 +75,8 @@ namespace WPF.View
 
             try
             {
-                productService.StoreProductToDB(product);
+                //productService.StoreProductToDB(product);
+                productServiceEF.StoreProduct(product);
                 MessageBox.Show("Product added successsfully");
 
                 txtCarName.Text = "";

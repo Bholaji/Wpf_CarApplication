@@ -1,6 +1,6 @@
-﻿using Models;
+﻿using EFCoreData.Interface;
+using Models;
 using Services.Implementaions;
-using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using AdminVM = Models.Admin;
 
 namespace WPF.View
 {
@@ -23,10 +22,10 @@ namespace WPF.View
     /// </summary>
     public partial class Admin : Window
     {
-        private readonly IUserService userService;
+        private readonly IUserEFCoreRepositories serviceEFCore;
         public Admin()
         {
-            userService = new UserService();
+            serviceEFCore = new UserServiceEFCore();
             InitializeComponent();
         }
 
@@ -64,7 +63,8 @@ namespace WPF.View
                 if (!string.IsNullOrEmpty(Email) || !string.IsNullOrEmpty(Password))
                 {
 
-                  bool isAdmin = userService.AdminLogIn(userAdmin);
+                    //bool isAdmin = userService.AdminLogIn(userAdmin);
+                    bool isAdmin = serviceEFCore.LoginAdminUser(userAdmin);
                     if (isAdmin)
                     {
                         var adminPage = new AdminPage();
